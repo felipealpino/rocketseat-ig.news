@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import s from '../styles/home.module.scss';
 import Head from 'next/head';
 
 export default function Home() {
@@ -8,10 +7,8 @@ export default function Home() {
       <Head>
         <title>Início | ig.news</title>
       </Head>
-      
-      <div className={s.teste}>
-        Hello <span>World</span>
-      </div>
+
+      <div>Hello World</div>
     </Fragment>
   );
 }
