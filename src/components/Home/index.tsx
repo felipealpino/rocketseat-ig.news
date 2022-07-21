@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
+import { SubscribeButton } from '../SubscribeButton';
 import s from './styles.module.scss';
 
 const Home: React.FC = () => {
@@ -14,6 +15,7 @@ const Home: React.FC = () => {
           Get access to all the publications <br />
           <span> for $9.90 month</span>
         </p>
+        <SubscribeButton />
       </section>
       <img src="/images/avatar.svg" alt="Girl coding" />
     </main>
