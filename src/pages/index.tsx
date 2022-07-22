@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Head from 'next/head';
 import { Home } from '../components/Home';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import { stripe } from '../services/stripe';
 interface IProduct {
   priceId: string;
@@ -29,7 +29,7 @@ export default function App({ product }: AppProps) {
 // Caso queira passar ela para dentro de componentes, deve ser feito através de props
 
 // getServerSideProps é executado na camada NextJs que é um servidor Node
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const price = await stripe.prices.retrieve('price_1LOAARATx0Gz1RDK2YnP5VB0', {
     expand: ['product'], // basicamente um inner join retornando todo o produto
   });
@@ -44,5 +44,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: { product },
+    revalidate: 60 * 60 * 24, // 24 horas
   };
 };
