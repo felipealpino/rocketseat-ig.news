@@ -1,9 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
+import { AppProps } from '../../pages';
 import { SubscribeButton } from '../SubscribeButton';
 import s from './styles.module.scss';
 
-const Home: React.FC = () => {
+type HomeProps = AppProps;
+
+const Home: React.FC<HomeProps> = ({ product }) => {
   return (
     <main className={s.contentContainer}>
       <section className={s.hero}>
@@ -13,9 +16,9 @@ const Home: React.FC = () => {
         </h1>
         <p>
           Get access to all the publications <br />
-          <span> for $9.90 month</span>
+          <span> for {product.amount} month</span>
         </p>
-        <SubscribeButton />
+        <SubscribeButton priceId={product.priceId} />
       </section>
       <img src="/images/avatar.svg" alt="Girl coding" />
     </main>
