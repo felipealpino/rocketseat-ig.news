@@ -1,14 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { AppProps } from '../../node_modules/next/app';
+import { SessionProvider } from 'next-auth/react';
 import { Header } from '../components/Header';
 import '../styles/global.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Fragment>
+    <SessionProvider session={pageProps.session}>
       <Header />
       <Component {...pageProps} />
-    </Fragment>
+    </SessionProvider>
   );
 }
 
