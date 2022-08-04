@@ -12,7 +12,6 @@ export interface AppProps {
 }
 
 export default function App({ product }: AppProps) {
-  console.log('🚀 ~ props', product);
   return (
     <Fragment>
       <Head>
