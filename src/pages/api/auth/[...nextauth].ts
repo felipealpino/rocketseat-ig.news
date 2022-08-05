@@ -17,7 +17,6 @@ export default NextAuth({
     }),
     // ... add more providers here
   ],
-  jwt: { secret: process.env.JWT_SECRET },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       console.log('🚀 ~ user', user);
