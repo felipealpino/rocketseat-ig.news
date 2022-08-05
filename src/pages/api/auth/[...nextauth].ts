@@ -20,11 +20,21 @@ export default NextAuth({
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       console.log('🚀 ~ user', user);
+
       try {
         await fauna.query(
-          query.Create(query.Collection('users'), {
-            data: { email: user.email },
-          })
+          query.If(
+            query.Not(
+              query.Exists(
+                query.Match(
+                  query.Index('user_by_email'), // index cadastrado para email no fauna,
+                  query.Casefold(user.email)
+                )
+              )
+            ),
+            query.Create('users', { data: { email: user.email } }),
+            query.Get(query.Match(query.Index('user_by_email'), query.Casefold(user.email)))
+          )
         );
         return true;
       } catch (error) {
