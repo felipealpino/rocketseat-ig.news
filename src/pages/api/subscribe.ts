@@ -1,10 +1,15 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { stripe } from '../../services/stripe';
 
-export async function createSubscribe(req: NextApiRequest, res: NextApiResponse) {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   if ((req.method = 'POST')) {
-    const session = await getSession({ req });
+    const { session } = req.body;
+    console.log('🚀 ~ req', req);
+
+    if (!session) res.status(404).end('Sessão nao encontrada... É necessário fazer Login.');
+
     const stripeCustomer = await stripe.customers.create({
       email: session.user.email,
       //   metadata
@@ -14,7 +19,7 @@ export async function createSubscribe(req: NextApiRequest, res: NextApiResponse)
       customer: stripeCustomer.id,
       payment_method_types: ['card'],
       billing_address_collection: 'required',
-      line_items: [{ price: 'price_11VhtPEr8N11t46KAhq5J0HW', quantity: 1 }],
+      line_items: [{ price: 'price_1LOAARATx0Gz1RDK2YnP5VB0', quantity: 1 }],
       mode: 'subscription',
       allow_promotion_codes: true,
       success_url: process.env.STRIPE_SUCCESS_URL,
@@ -26,4 +31,4 @@ export async function createSubscribe(req: NextApiRequest, res: NextApiResponse)
     res.setHeader('Allow', 'POST');
     res.status(405).end('Method not allowed');
   }
-}
+};
