@@ -9,11 +9,11 @@ export default NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      authorization: {
-        params: {
-          scope: 'read:user',
-        },
-      },
+      // authorization: {
+      //   params: {
+      //     scope: 'read:user',
+      //   },
+      // },
     }),
     // ... add more providers here
   ],
